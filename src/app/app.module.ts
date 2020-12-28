@@ -5,10 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserComponent } from './components/user/user.component';
 import { CreteComponent } from './components/crete/crete.component';
+import { UsersComponent } from './components/users/users.component';
 
 
 @NgModule({
-  declarations: [AppComponent, UserComponent, CreteComponent],
+  declarations: [AppComponent, UserComponent, CreteComponent, UsersComponent],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent]

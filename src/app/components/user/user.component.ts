@@ -1,5 +1,5 @@
-import { templateJitUrl } from '@angular/compiler';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { User } from '../../models/User';
 
 @Component({
     selector: 'app-user',
@@ -14,7 +14,7 @@ import { Component } from '@angular/core';
     // `]
 })
 
-export class UserComponent {
+export class UserComponent implements OnInit {
     // Properties
     // firstName = 'John';
     // lastName = 'Doe';
@@ -38,33 +38,61 @@ export class UserComponent {
     u: undefined; //TYPE: undefined
     n: null; //TYPE: null
 
+
+    // user: {
+    //     firstname: string,
+    //     lastname: string,
+    //     age: number,
+    //     address: {
+    //         street: string,
+    //         city: string,
+    //         state: string
+    //     }
+    // }
+
+    //sau
+    user: User;
+
+
     //Methods
     constructor() {
-        this.firstName = 'John';
-        this.lastName = 'Doe';
-        this.age = 33;
-        this.address = {
-            street: '50 Main Street',
-            city: 'Boston',
-            state: 'Masachusets'
-        };
-        this.foo = true;
-        this.hasKids = true;
-        this.numberArray = [1, 2, 3];
-        this.stringArray = ['Hello', 'World'];
-        this.mixedArray = [false, 1, true, ' Hello'];
-        this.myTuple = [1, 'hy', false];
-        this.unusuable = null;
-        this.u = undefined;
-        this.n = null;
+        // this.firstName = 'John';
+        // this.lastName = 'Doe';
+        // this.age = 33;
+        // this.address = {
+        //     street: '50 Main Street',
+        //     city: 'Boston',
+        //     state: 'Masachusets'
+        // };
+        // this.foo = true;
+        // this.hasKids = true;
+        // this.numberArray = [1, 2, 3];
+        // this.stringArray = ['Hello', 'World'];
+        // this.mixedArray = [false, 1, true, ' Hello'];
+        // this.myTuple = [1, 'hy', false];
+        // this.unusuable = null;
+        // this.u = undefined;
+        // this.n = null;
 
-        console.log(this.addNumbers(1, 2));
+        // this.user = {
+        //     firstname: 'Vassile',
+        //     lastname: 'Ion',
+        //     age: 52,
+        //     address: {
+        //         street: 'ionescu de la vrancea',
+        //         city: 'Stockholm',
+        //         state: 'Raspanpuran'
+        //     }
+        // }
 
-        console.log('Hello user...');
-        this.sayHello();
-        console.log(this.age);
-        this.hasBirthDay();
-        console.log(this.age);
+
+        // console.log(this.addNumbers(1, 2));
+
+        // console.log('Hello user...');
+        // this.sayHello();
+        // console.log(this.age);
+        // this.hasBirthDay();
+        // console.log(this.age);
     }
 
     //function where the paramethers must be numbers and the return value must be number
@@ -83,4 +111,55 @@ export class UserComponent {
         console.log(this.age += 1);
     }
 
+    ngOnInit() {
+        this.firstName = 'John';
+        this.lastName = 'Doe';
+        this.age = 33;
+        this.address = {
+            street: '50 Main Street',
+            city: 'Boston',
+            state: 'Masachusets'
+        };
+        this.foo = true;
+        this.hasKids = true;
+        this.numberArray = [1, 2, 3];
+        this.stringArray = ['Hello', 'World'];
+        this.mixedArray = [false, 1, true, ' Hello'];
+        this.myTuple = [1, 'hy', false];
+        this.unusuable = null;
+        this.u = undefined;
+        this.n = null;
+
+        this.user = {
+            firstname: 'Vassile',
+            lastname: 'Ion',
+            age: 52,
+            address: {
+                street: 'ionescu de la vrancea',
+                city: 'Stockholm',
+                state: 'Raspanpuran'
+            }
+        }
+
+
+        console.log(this.addNumbers(1, 2));
+
+        console.log('Hello user...');
+        this.sayHello();
+        console.log(this.age);
+        this.hasBirthDay();
+        console.log(this.age);
+    }
+
 }
+
+// interface User {
+//     firstname: string,
+//     lastname: string,
+//     age: number,
+//     address: {
+//         street: string,
+//         city: string,
+//         state: string
+//     }
+// }

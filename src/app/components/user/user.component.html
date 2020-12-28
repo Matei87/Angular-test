@@ -1,7 +1,20 @@
 <h1>Hello World !!!</h1>
 <p>{{firstName}} {{lastName}}`s real age is {{showAge()}} not {{age > 33 ? 20 : 18}} years old !!!</p>
+
+<h3>{{firstName}} {{lastName}}</h3>
 <ul>
     <!-- <li *ngFor="let a of address; let index = index">Adress: {{index}} </li> -->
     <li>Adress: {{address.street}} {{address.city}} {{address.state}}</li>
+    <li>Age: {{age}}</li>
     <li>{{addNumbers(1, 5)}}</li>
+</ul>
+
+<h3>{{user.firstname}} {{user.lastname}}</h3>
+<ul>
+    <li>
+        Adress: {{user.address.street}} {{user.address.city}} {{user.address.state}}
+    </li>
+    <li>
+        Age: {{user.age}}
+    </li>
 </ul>
