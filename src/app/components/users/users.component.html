@@ -1,1 +1,50 @@
-<p>users works!</p>
+<h2>Users</h2>
+<div class="d-grid mb-2">
+    <button [disabled]="!enableAdd" class="btn">Add New User</button>
+</div>
+<ul *ngIf="loaded && users?.length > 0" class="list-unstyled">
+    <li *ngFor="let item of users" class="card card-body mb-2" [class.bg-warning]="item.isActive">
+        <!-- <div class="col-sm-4">
+                <img *ngIf="item.image" class="img-fluid" [src]=item.image" alt="people">
+                <img *ngIf="item.image" class="img-fluid" src={{item.image}} alt="people">
+                <img *ngIf="item.image" class="img-fluid" bind-src="item.image" alt="people">
+            </div> -->
+        <h3>{{item.firstname}} {{item.lastname}}</h3>
+        <ul *ngIf="showExtended && item.age && item.address" class="list-group">
+            <li class="list-group-item">
+                Age: {{item.age}}
+            </li>
+            <li class="list-group-item">
+                Adress: {{item.address.street}}, {{item.address.city}}, {{item.address.state}}
+            </li>
+            <li class="list-group-item">
+                Joined: {{item.registered | date: "fullDate"}}
+            </li>
+        </ul>
+    </li>
+</ul>
+<!-- <ng-template #noUsers>
+    <h4>No Users Found</h4>
+</ng-template> -->
+<h4 *ngIf="users?.length === 0">No Users Found</h4>
+<h4 *ngIf="!loaded">Loading Users...</h4>
+
+
+<h2>Products:</h2>
+<ul *ngIf="loadedProducts; else NoProducts" class="card card-body">
+    <li *ngFor="let item of products" class="list-group mt-4" [class.text-warning]="item.isCorect">
+        <p class="list-group-item">
+            <span>Produs1: {{item.mainProduct}}</span>&nbsp;
+            <span>Pret: {{item.priceMainProduct}}</span>&nbsp;
+        </p>
+        <p class="list-group-item">
+            <span>Produs2: {{item.secondProduct}}</span>&nbsp;
+            <span>Pret: {{item.priceSecondProduct}}</span>&nbsp;
+        </p>
+        <h4 class="card-footer">Total: {{item.priceMainProduct + item.priceSecondProduct}}->{{item.totalPrice}}</h4>
+    </li>
+</ul>
+
+<ng-template #NoProducts>
+    <h4>Loading...</h4>
+</ng-template>
