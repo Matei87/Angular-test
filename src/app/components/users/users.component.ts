@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from '../../models/User';
 
 @Component({
@@ -8,23 +8,19 @@ import { User } from '../../models/User';
 })
 export class UsersComponent implements OnInit {
 
+  user: User = {
+    firstName: '',
+    lastName: '',
+    email: ''
+  }
   users: User[];
   showExtended: boolean = true;
   loaded: boolean = false;
   loadedProducts: boolean = false;
-  enableAdd: boolean = true;
-  //currentClasses = {};
-  //currentStyles = {};
+  enableAdd: boolean = false;
+  showUserForm: boolean = false;
+  @ViewChild('userForm') form: any;
 
-
-  products: {
-    mainProduct: string,
-    secondProduct: string,
-    priceMainProduct: number,
-    priceSecondProduct: number,
-    totalPrice: number,
-    isCorect: boolean
-  }[]
 
   constructor() {
 
@@ -34,40 +30,28 @@ export class UsersComponent implements OnInit {
 
     this.users = [
       {
-        firstname: 'Vassile',
-        lastname: 'Ion',
-        age: 52,
-        address: {
-          street: 'ionescu de la vrancea',
-          city: 'Stockholm',
-          state: 'Raspanpuran'
-        },
+        firstName: 'Vassile',
+        lastName: 'Ion',
+        email: 'vassile@gmail.com',
         isActive: true,
-        registered: new Date('01/02/2018 08:30:00')
+        registered: new Date('01/02/2018 08:30:00'),
+        hide: true
       },
       {
-        firstname: 'Kevin',
-        lastname: 'John',
-        age: 22,
-        address: {
-          street: 'Barbu de la ionesti',
-          city: 'los angeles',
-          state: 'usa'
-        },
+        firstName: 'Kevin',
+        lastName: 'John',
+        email: 'Kevin@yahoo.com',
         isActive: false,
-        registered: new Date('03/11/2017 06:20:00')
+        registered: new Date('03/11/2017 06:20:00'),
+        hide: true
       },
       {
-        firstname: 'john',
-        lastname: 'Ion',
-        age: 82,
-        address: {
-          street: 'patapievici',
-          city: 'new york',
-          state: 'bosnia'
-        },
+        firstName: 'john',
+        lastName: 'Ion',
+        email: 'john.ion@respectaMan.com',
         isActive: true,
-        registered: new Date('11/02/2016 02:30:00')
+        registered: new Date('11/02/2016 02:30:00'),
+        hide: true
       }
     ];
 
@@ -75,58 +59,34 @@ export class UsersComponent implements OnInit {
 
     console.log('UsersComponent init');
 
-    setTimeout(() => {
-      this.products = [
-        {
-          mainProduct: 'paine',
-          secondProduct: 'cartofi',
-          priceMainProduct: 1,
-          priceSecondProduct: 2,
-          totalPrice: 3,
-          isCorect: true
-        },
-        {
-          mainProduct: 'paine feliata',
-          secondProduct: 'cartofi uscati',
-          priceMainProduct: 2,
-          priceSecondProduct: 3,
-          totalPrice: 5,
-          isCorect: false
-        },
-        {
-          mainProduct: 'paine feliata neagra',
-          secondProduct: 'cartofi prajiti',
-          priceMainProduct: 3,
-          priceSecondProduct: 4,
-          totalPrice: 7,
-          isCorect: true
-        }
-      ];
-
-      this.loadedProducts = true;
-    }, 3000);
-
-    //this.setCurrentClasses();
-    //this.setCurrentStyles();
-
-    this.addProduct({
-      mainProduct: 'paine seminte',
-      secondProduct: 'cartofi KFC',
-      priceMainProduct: 7,
-      priceSecondProduct: 6,
-      totalPrice: 13,
-      isCorect: false
-    })
-
-
   }
 
-  addUser(user) {
-    this.users.push(user);
+
+  toggleHide(user: User) {
+    user.hide = !user.hide;
   }
 
-  addProduct(product) {
-    this.products.push(product);
+  onSubmit({ value, valid }: { value: User, valid: boolean }) {
+    if (!valid) {
+      console.log('form is not valid');
+
+    } else {
+      value.isActive = true;
+      value.registered = new Date();
+      value.hide = true;
+
+      this.users.unshift(value);
+      this.form.reset();
+    }
+  }
+  // addProduct(product) {
+  //   this.products.push(product);
+  // }
+
+  fireEvent(e) {
+    //console.log('button clicked');
+    console.log(e.type);
+    console.log(e.target.value);
   }
 
   // setCurrentClasses() {

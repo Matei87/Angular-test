@@ -1,7 +1,45 @@
-<h2>Users</h2>
-<div class="d-grid mb-2">
-    <button [disabled]="!enableAdd" class="btn">Add New User</button>
+<button (click)="showUserForm = !showUserForm" class="btn btn-dark mb-3">Add User</button>
+<div *ngIf="showUserForm" class="card card-body mb-3">
+    <h2>Add User</h2>
+
+    <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+        <div class="form-group mb-3">
+            <label class="mb-1" style="font-weight: 500;">First Name</label>
+            <input type="text" [(ngModel)]="user.firstName"
+                [ngClass]="{'is-invalid': userFirstName.errors && userFirstName.touched}" class="form-control"
+                name="firstName" #userFirstName="ngModel" required minlength="2">
+            <div [hidden]="!userFirstName.errors?.required" class="invalid-feedback">First Name Required</div>
+            <div [hidden]="!userFirstName.errors?.minlength" class="invalid-feedback">Must be at least 2 characthers
+            </div>
+        </div>
+
+        <div class="form-group mb-3">
+            <label class="mb-1" style="font-weight: 500;">Last Name</label>
+            <input type="text" [(ngModel)]="user.lastName"
+                [ngClass]="{'is-invalid': userLastName.errors && userLastName.touched}" class="form-control"
+                name="lastName" #userLastName="ngModel" required minlength="2">
+            <div [hidden]="!userLastName.errors?.required" class="invalid-feedback">Last Name Required</div>
+            <div [hidden]="!userLastName.errors?.minlength" class="invalid-feedback">Must be at least 2 characthers
+            </div>
+        </div>
+
+        <div class="form-group mb-3">
+            <label class="mb-1" style="font-weight: 500;">Email</label>
+            <input type="email" [(ngModel)]="user.email"
+                [ngClass]="{'is-invalid': userEmail.errors && userEmail.touched}" class="form-control" name="email"
+                #userEmail="ngModel" required pattern="^[a-zA-Z0-9_\-.]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-.]+$">
+            <div [hidden]="!userEmail.errors?.required" class="invalid-feedback">Email Required</div>
+            <div [hidden]="!userEmail.errors?.pattern" class="invalid-feedback">Email is not Valid</div>
+        </div>
+
+        <div class="d-grid mb-2">
+            <button [disabled]="!userForm.form.valid" class="btn bg-dark text-light">Add New
+                User</button>
+        </div>
+
+    </form>
 </div>
+
 <ul *ngIf="loaded && users?.length > 0" class="list-unstyled">
     <li *ngFor="let item of users" class="card card-body mb-2" [class.bg-warning]="item.isActive">
         <!-- <div class="col-sm-4">
@@ -9,13 +47,16 @@
                 <img *ngIf="item.image" class="img-fluid" src={{item.image}} alt="people">
                 <img *ngIf="item.image" class="img-fluid" bind-src="item.image" alt="people">
             </div> -->
-        <h3>{{item.firstname}} {{item.lastname}}</h3>
-        <ul *ngIf="showExtended && item.age && item.address" class="list-group">
+        <h3>{{item.firstName}} {{item.lastName}}
+            <small>
+                <button (click)="item.hide = !item.hide" class="btn btn-danger btn-sm">
+                    <i class="fa fa-plus" [ngClass]="item.hide ? 'fa fa-plus' : 'fa fa-minus'"></i>
+                </button>
+            </small>
+        </h3>
+        <ul *ngIf="!item.hide" class="list-group">
             <li class="list-group-item">
-                Age: {{item.age}}
-            </li>
-            <li class="list-group-item">
-                Adress: {{item.address.street}}, {{item.address.city}}, {{item.address.state}}
+                Email: {{item.email}}
             </li>
             <li class="list-group-item">
                 Joined: {{item.registered | date: "fullDate"}}
@@ -30,7 +71,7 @@
 <h4 *ngIf="!loaded">Loading Users...</h4>
 
 
-<h2>Products:</h2>
+<!-- <h2>Products:</h2>
 <ul *ngIf="loadedProducts; else NoProducts" class="card card-body">
     <li *ngFor="let item of products" class="list-group mt-4" [class.text-warning]="item.isCorect">
         <p class="list-group-item">
@@ -47,4 +88,4 @@
 
 <ng-template #NoProducts>
     <h4>Loading...</h4>
-</ng-template>
+</ng-template> -->
