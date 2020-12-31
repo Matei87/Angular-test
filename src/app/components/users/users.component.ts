@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { UserService } from '../../services/user.service';
 import { User } from '../../models/User';
 
 @Component({
@@ -20,44 +21,22 @@ export class UsersComponent implements OnInit {
   enableAdd: boolean = false;
   showUserForm: boolean = false;
   @ViewChild('userForm') form: any;
+  data: any;
 
-
-  constructor() {
+  constructor(private userService: UserService) {
 
   }
 
   ngOnInit(): void {
+    this.userService.getData();
 
-    this.users = [
-      {
-        firstName: 'Vassile',
-        lastName: 'Ion',
-        email: 'vassile@gmail.com',
-        isActive: true,
-        registered: new Date('01/02/2018 08:30:00'),
-        hide: true
-      },
-      {
-        firstName: 'Kevin',
-        lastName: 'John',
-        email: 'Kevin@yahoo.com',
-        isActive: false,
-        registered: new Date('03/11/2017 06:20:00'),
-        hide: true
-      },
-      {
-        firstName: 'john',
-        lastName: 'Ion',
-        email: 'john.ion@respectaMan.com',
-        isActive: true,
-        registered: new Date('11/02/2016 02:30:00'),
-        hide: true
-      }
-    ];
+    this.userService.getUsers().subscribe(users => {
+      this.users = users;
+      console.log(users);
+      this.loaded = true;
+    });
 
-    this.loaded = true;
-
-    console.log('UsersComponent init');
+    console.log(this.userService);
 
   }
 
@@ -75,7 +54,7 @@ export class UsersComponent implements OnInit {
       value.registered = new Date();
       value.hide = true;
 
-      this.users.unshift(value);
+      this.userService.addUser(value);
       this.form.reset();
     }
   }
@@ -83,11 +62,11 @@ export class UsersComponent implements OnInit {
   //   this.products.push(product);
   // }
 
-  fireEvent(e) {
-    //console.log('button clicked');
-    console.log(e.type);
-    console.log(e.target.value);
-  }
+  // fireEvent(e) {
+  //   //console.log('button clicked');
+  //   console.log(e.type);
+  //   console.log(e.target.value);
+  // }
 
   // setCurrentClasses() {
   //   this.currentClasses = {
