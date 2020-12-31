@@ -1,0 +1,15 @@
+footer {
+    font-weight: 500;
+    height: 40px;
+    background: chocolate;
+    margin-top: 3rem;
+    display: flex; justify-content: center; align-items: center;
+}
+
+footer p {
+    margin: 0;
+}
+
+footer p span {
+    color: cornsilk;
+}
